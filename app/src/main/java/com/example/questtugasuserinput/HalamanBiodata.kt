@@ -48,9 +48,9 @@ import androidx.compose.ui.text.input.KeyboardType
 fun BannerGeser(modifier: Modifier = Modifier) {
     val gambarBanner = listOf(
         R.drawable.banner_1,
-        R.drawable.banner_2,
-        R.drawable.banner_3,
-        R.drawable.banner_4
+        R.drawable.banner_1,
+        R.drawable.banner_1,
+        R.drawable.banner_1
     )
     val pagerState = rememberPagerState(pageCount = { gambarBanner.size })
     Box(modifier = modifier) {
