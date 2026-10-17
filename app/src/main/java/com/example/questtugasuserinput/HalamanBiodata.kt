@@ -85,3 +85,166 @@ fun BannerGeser(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun KartuBiodata(modifier: Modifier = Modifier) {
+    var namaDepan by rememberSaveable { mutableStateOf("") }
+    var namaBelakang by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var tanggalLahir by rememberSaveable { mutableStateOf("") }
+    var pengalaman by rememberSaveable { mutableStateOf("") }
+    val skillTerpilih = remember { mutableStateListOf<Int>() }
+
+    val daftarPengalaman = stringArrayResource(R.array.pilihan_pengalaman).toList()
+    val daftarSkill = stringArrayResource(R.array.daftar_skill)
+    val polaTanggal = stringResource(R.string.format_tanggal)
+    val konteks = LocalContext.current
+    val pesanBerhasil = stringResource(R.string.pesan_berhasil, namaDepan)
+
+    val emailSalah = email.isNotBlank() && !emailValid(email)
+    val formLengkap = namaDepan.isNotBlank() &&
+            namaBelakang.isNotBlank() &&
+            email.isNotBlank() && !emailSalah &&
+            tanggalLahir.isNotBlank() &&
+            pengalaman.isNotBlank() &&
+            skillTerpilih.isNotEmpty()
+
+    val bentuk = RoundedCornerShape(
+        topStart = dimensionResource(R.dimen.radius_kartu_atas),
+        topEnd = dimensionResource(R.dimen.radius_kartu_atas),
+        bottomStart = dimensionResource(R.dimen.radius_kartu_bawah),
+        bottomEnd = dimensionResource(R.dimen.radius_kartu_bawah)
+    )
+
+    // Box ini "mengapung" di atas konten Scaffold: diberi bayangan dan bentuk sendiri.
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .shadow(dimensionResource(R.dimen.elevasi_kartu), bentuk)
+            .background(colorResource(R.color.latar_kartu), bentuk)
+    ) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    horizontal = dimensionResource(R.dimen.padding_kartu_horizontal),
+                    vertical = dimensionResource(R.dimen.padding_kartu_vertikal)
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.jarak_antar_baris))
+        ) {
+            Text(
+                text = stringResource(R.string.judul_form),
+                color = colorResource(R.color.ungu_utama),
+                fontSize = spResource(R.dimen.ukuran_judul),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.subjudul_form),
+                color = colorResource(R.color.teks_abu),
+                fontSize = spResource(R.dimen.ukuran_subjudul)
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.jarak_antar_isian))
+            ) {
+                FieldBiodata(
+                    value = namaDepan,
+                    onValueChange = { namaDepan = it },
+                    hint = stringResource(R.string.hint_nama_depan),
+                    modifier = Modifier.weight(1f)
+                )
+                FieldBiodata(
+                    value = namaBelakang,
+                    onValueChange = { namaBelakang = it },
+                    hint = stringResource(R.string.hint_nama_belakang),
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            FieldBiodata(
+                value = email,
+                onValueChange = { email = it },
+                hint = stringResource(R.string.hint_email),
+                modifier = Modifier.fillMaxWidth(),
+                keyboardType = KeyboardType.Email,
+                isError = emailSalah,
+                pesanError = if (emailSalah) stringResource(R.string.error_email) else null
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.jarak_antar_isian))
+            ) {
+                FieldTanggal(
+                    nilai = tanggalLahir,
+                    hint = stringResource(R.string.hint_tgl_lahir),
+                    onTanggalDipilih = { tanggalLahir = formatTanggal(it, polaTanggal) },
+                    modifier = Modifier.weight(1f)
+                )
+                FieldDropdown(
+                    nilai = pengalaman,
+                    hint = stringResource(R.string.hint_experience),
+                    pilihan = daftarPengalaman,
+                    onPilih = { pengalaman = it },
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Text(
+                text = stringResource(R.string.label_skill),
+                color = colorResource(R.color.teks_gelap),
+                fontSize = spResource(R.dimen.ukuran_label),
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                daftarSkill.forEachIndexed { indeks, skill ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(
+                            checked = indeks in skillTerpilih,
+                            onCheckedChange = { dicentang ->
+                                if (dicentang) skillTerpilih.add(indeks) else skillTerpilih.remove(indeks)
+                            },
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = colorResource(R.color.ungu_utama),
+                                uncheckedColor = colorResource(R.color.garis_isian)
+                            )
+                        )
+                        Text(
+                            text = skill,
+                            color = colorResource(R.color.teks_gelap),
+                            fontSize = spResource(R.dimen.ukuran_skill)
+                        )
+                    }
+                }
+            }
+
+            Button(
+                onClick = { Toast.makeText(konteks, pesanBerhasil, Toast.LENGTH_SHORT).show() },
+                enabled = formLengkap,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dimensionResource(R.dimen.tinggi_tombol)),
+                shape = RoundedCornerShape(dimensionResource(R.dimen.radius_tombol)),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorResource(R.color.ungu_utama),
+                    contentColor = colorResource(R.color.teks_tombol_aktif),
+                    disabledContainerColor = colorResource(R.color.tombol_nonaktif),
+                    disabledContentColor = colorResource(R.color.teks_tombol_nonaktif)
+                )
+            ) {
+                Text(
+                    text = stringResource(R.string.tombol_proceed),
+                    fontSize = spResource(R.dimen.ukuran_tombol),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
+}
+
