@@ -62,3 +62,26 @@ fun BannerGeser(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxSize()
             )
         }
+        Row(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(dimensionResource(R.dimen.titik_padding)),
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.jarak_titik))
+        ) {
+            repeat(pagerState.pageCount) { indeks ->
+                val aktif = pagerState.currentPage == indeks
+                Box(
+                    modifier = Modifier
+                        .size(dimensionResource(R.dimen.ukuran_titik))
+                        .clip(CircleShape)
+                        .background(
+                            colorResource(
+                                if (aktif) R.color.indikator_aktif else R.color.indikator_nonaktif
+                            )
+                        )
+                )
+            }
+        }
+    }
+}
+
