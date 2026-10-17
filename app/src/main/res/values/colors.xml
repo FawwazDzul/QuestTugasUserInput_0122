@@ -13,5 +13,6 @@
     <color name="teks_gelap">#FF1C1B1F</color>
     <color name="teks_abu">#FF757575</color>
     <color name="garis_isian">#FF79747E</color>
+    <color name="tombol_nonaktif">#FFE0E0E0</color>
 
 </resources>
