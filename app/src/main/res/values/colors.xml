@@ -16,5 +16,6 @@
     <color name="tombol_nonaktif">#FFE0E0E0</color>
     <color name="teks_tombol_nonaktif">#FFF5F5F5</color>
     <color name="teks_tombol_aktif">#FFFFFFFF</color>
+    <color name="indikator_aktif">#FF1E88E5</color>
 
 </resources>
