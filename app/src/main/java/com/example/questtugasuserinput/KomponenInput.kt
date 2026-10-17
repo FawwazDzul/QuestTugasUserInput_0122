@@ -130,3 +130,33 @@ fun DialogTanggal(onPilih: (Long) -> Unit, onTutup: () -> Unit) {
     }
 }
 
+@Composable
+fun FieldTanggal(
+    nilai: String,
+    hint: String,
+    onTanggalDipilih: (Long) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var dialogTampil by remember { mutableStateOf(false) }
+    Box(modifier = modifier) {
+        FieldBiodata(
+            value = nilai,
+            onValueChange = {},
+            hint = hint,
+            readOnly = true,
+            modifier = Modifier.fillMaxWidth(),
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = stringResource(R.string.deskripsi_ikon_kalender)
+                )
+            }
+        )
+        Box(modifier = Modifier
+            .matchParentSize()
+            .clickable { dialogTampil = true })
+    }
+    if (dialogTampil) {
+        DialogTanggal(onPilih = onTanggalDipilih, onTutup = { dialogTampil = false })
+    }
+}
