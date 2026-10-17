@@ -11,5 +11,9 @@
     <dimen name="padding_kartu_horizontal">28dp</dimen>
     <dimen name="padding_kartu_vertikal">24dp</dimen>
     <dimen name="jarak_antar_baris">16dp</dimen>
+    <dimen name="jarak_antar_isian">12dp</dimen>
+    <dimen name="radius_isian">20dp</dimen>
+    <dimen name="radius_tombol">16dp</dimen>
+    <dimen name="tinggi_tombol">56dp</dimen>
 
 </resources>
