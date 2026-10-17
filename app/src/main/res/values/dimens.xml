@@ -15,5 +15,10 @@
     <dimen name="radius_isian">20dp</dimen>
     <dimen name="radius_tombol">16dp</dimen>
     <dimen name="tinggi_tombol">56dp</dimen>
-
+    <dimen name="ukuran_judul">28sp</dimen>
+    <dimen name="ukuran_subjudul">11sp</dimen>
+    <dimen name="ukuran_isian">14sp</dimen>
+    <dimen name="ukuran_label">14sp</dimen>
+    <dimen name="ukuran_skill">12sp</dimen>
+    <dimen name="ukuran_tombol">14sp</dimen>
 </resources>
