@@ -31,6 +31,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.foundation.layout.fillMaxWidth
 
 @Composable
 fun FieldBiodata(
@@ -105,3 +106,27 @@ fun FieldDropdown(
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DialogTanggal(onPilih: (Long) -> Unit, onTutup: () -> Unit) {
+    val state = rememberDatePickerState()
+    DatePickerDialog(
+        onDismissRequest = onTutup,
+        confirmButton = {
+            TextButton(
+                enabled = state.selectedDateMillis != null,
+                onClick = {
+                    state.selectedDateMillis?.let { onPilih(it) }
+                    onTutup()
+                }
+            ) { Text(text = stringResource(R.string.dialog_ok)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onTutup) { Text(text = stringResource(R.string.dialog_batal)) }
+        }
+    ) {
+        DatePicker(state = state)
+    }
+}
+
