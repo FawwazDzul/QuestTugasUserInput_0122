@@ -45,5 +45,32 @@ fun FieldBiodata(
     isError: Boolean = false,
     pesanError: String? = null
 ) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        placeholder = { Text(text = hint, fontSize = spResource(R.dimen.ukuran_isian)) },
+        textStyle = TextStyle(fontSize = spResource(R.dimen.ukuran_isian)),
+        trailingIcon = trailingIcon,
+        singleLine = true,
+        readOnly = readOnly,
+        isError = isError,
+        supportingText = if (pesanError != null) {
+            { Text(text = pesanError) }
+        } else null,
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+        shape = RoundedCornerShape(dimensionResource(R.dimen.radius_isian)),
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = colorResource(R.color.ungu_utama),
+            unfocusedBorderColor = colorResource(R.color.garis_isian),
+            cursorColor = colorResource(R.color.ungu_utama),
+            focusedTextColor = colorResource(R.color.teks_gelap),
+            unfocusedTextColor = colorResource(R.color.teks_gelap),
+            focusedPlaceholderColor = colorResource(R.color.teks_abu),
+            unfocusedPlaceholderColor = colorResource(R.color.teks_abu)
+        )
+    )
+}
+
 
 }
