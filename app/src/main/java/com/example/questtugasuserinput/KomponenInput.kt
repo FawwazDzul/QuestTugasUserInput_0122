@@ -31,7 +31,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.foundation.layout.fillMaxWidth
 
 @Composable
 fun FieldBiodata(
@@ -72,5 +71,37 @@ fun FieldBiodata(
     )
 }
 
-
+@Composable
+fun FieldDropdown(
+    nilai: String,
+    hint: String,
+    pilihan: List<String>,
+    onPilih: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var terbuka by remember { mutableStateOf(false) }
+    Box(modifier = modifier) {
+        FieldBiodata(
+            value = nilai,
+            onValueChange = {},
+            hint = hint,
+            readOnly = true,
+            modifier = Modifier.fillMaxWidth(),
+            trailingIcon = { Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) }
+        )
+        Box(modifier = Modifier
+            .matchParentSize()
+            .clickable { terbuka = true })
+        DropdownMenu(expanded = terbuka, onDismissRequest = { terbuka = false }) {
+            pilihan.forEach { item ->
+                DropdownMenuItem(
+                    text = { Text(text = item) },
+                    onClick = {
+                        onPilih(item)
+                        terbuka = false
+                    }
+                )
+            }
+        }
+    }
 }
