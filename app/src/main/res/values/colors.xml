@@ -11,5 +11,6 @@
     <color name="ungu_utama">#FF673AB7</color>
     <color name="latar_kartu">#FFFFFFFF</color>
     <color name="teks_gelap">#FF1C1B1F</color>
+    <color name="teks_abu">#FF757575</color>
 
 </resources>
