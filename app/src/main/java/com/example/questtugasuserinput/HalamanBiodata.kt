@@ -248,3 +248,18 @@ fun KartuBiodata(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun HalamanBiodata(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
+        BannerGeser(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(dimensionResource(R.dimen.tinggi_banner))
+        )
+        KartuBiodata(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = dimensionResource(R.dimen.margin_bawah_kartu))
+        )
+    }
+}
