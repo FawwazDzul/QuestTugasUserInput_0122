@@ -1,14 +1,10 @@
 package com.example.questtugasuserinput
 
-package com.example.questtugasuserinput
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenu
@@ -88,7 +84,7 @@ fun FieldDropdown(
             hint = hint,
             readOnly = true,
             modifier = Modifier.fillMaxWidth(),
-            trailingIcon = { Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null) }
+            trailingIcon = { Icon(painter = painterResource(R.drawable.ic_panah_bawah), contentDescription = null) }
         )
         Box(modifier = Modifier
             .matchParentSize()
@@ -147,7 +143,7 @@ fun FieldTanggal(
             modifier = Modifier.fillMaxWidth(),
             trailingIcon = {
                 Icon(
-                    imageVector = Icons.Default.DateRange,
+                    painter = painterResource(R.drawable.ic_kalender),
                     contentDescription = stringResource(R.string.deskripsi_ikon_kalender)
                 )
             }
