@@ -15,5 +15,6 @@
     <color name="garis_isian">#FF79747E</color>
     <color name="tombol_nonaktif">#FFE0E0E0</color>
     <color name="teks_tombol_nonaktif">#FFF5F5F5</color>
+    <color name="teks_tombol_aktif">#FFFFFFFF</color>
 
 </resources>
